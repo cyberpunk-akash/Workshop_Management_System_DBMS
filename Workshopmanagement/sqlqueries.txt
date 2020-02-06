@@ -1,0 +1,123 @@
+create table manager(
+manager_id int auto_increment,
+username varchar(50) not null unique, 
+password varchar(100),
+mobile_number varchar(15),
+email varchar(30),
+gender varchar(10),
+primary key(manager_id));
+
+create table manager_name(
+manager_id int primary key auto_increment,
+manager_first_name varchar(20),
+manager_middle_name varchar(20),
+manager_last_name varchar(20),
+foreign key(manager_id) references manager(manager_id));
+
+create table employee(
+emp_id int auto_increment,
+name varchar(100),
+mobile_number varchar(20),
+email varchar(50),
+primary key(emp_id));
+
+create table supplier(
+supplier_id int primary key auto_increment,
+retailer_name varchar(20) not null,
+retailer_phoneno varchar(20) not null,
+retailer_email varchar(20),
+retailer_address varchar(40)
+);
+
+create table inventory(
+product_id int primary key auto_increment,
+supplier_id int,
+product_name varchar(50) not null,
+product_stock varchar(50),
+foreign key(supplier_id) references supplier(supplier_id));
+
+create table supplier_invoice (
+invoice_id int primary key auto_increment,
+supplier_id int,
+no_of_days int,
+product_id int,
+FOREIGN KEY(product_id) REFERENCES inventory(product_id),
+foreign key(supplier_id) references supplier(supplier_id)
+);
+
+create table vehicle (
+vehicle_no int primary key auto_increment not null,
+vehicle_name varchar(20) not null,
+capcity numeric(10,2) not null
+);
+
+
+
+create table retailer(
+retailer_id int primary key auto_increment,
+retailer_name varchar(50) not null,
+retailer_phoneno varchar(20),
+retailer_email varchar(50),
+retailer_address varchar(50));
+
+
+
+create table work_order(
+order_id int primary key auto_increment, 
+emp_id int,
+vehicle_no varchar(50),
+retailer_id int,
+product_id int,
+status varchar(20),
+comments varchar(20),
+foreign key(emp_id) references employee(emp_id),
+foreign key(retailer_id) references retailer(retailer_id),
+foreign key(product_id) references inventory(product_id));
+
+
+create table retailer_receipt(
+receipt_id int primary key auto_increment,
+retailer_id int,
+date_delivered date,
+product_id int,
+foreign key(retailer_id) references retailer(retailer_id),
+foreign key(product_id) references inventory(product_id)
+); 
+
+
+
+EXTRA QUERIES:
+alter table vehicle modify vehicle_no varchar(50);
+alter table inventory add product_amount numeric(10,2);
+alter table supplier drop retailer_name;
+alter table supplier drop retailer_phoneno;
+alter table supplier drop retailer_email;
+alter table supplier drop retailer_address;
+alter table supplier add supplier_name varchar(50);
+alter table supplier add supplier_phoneno varchar(50);
+alter table supplier add supplier_email varchar(50);
+alter table supplier add supplier_address varchar(200);
+alter table employee add gender varchar(20);
+alter table supplier modify supplier_name varchar(50) unique;
+alter table retailer modify retailer_name varchar(50) unique;
+alter table retailer_receipt add receipt_amount numeric(10,2);
+
+create procedure get_retail_id(IN NAME VARCHAR(50))
+begin
+select retailer_id from retailer where retailer_name = NAME;
+END;
+/
+
+SELECT SUM(product_amount) AS "Total Price",
+supplier.supplier_name AS "Supplier"
+FROM supplier,inventory
+WHERE inventory.supplier_id= supplier.supplier_id
+GROUP BY supplier.supplier_name
+HAVING AVG(product_amount) >= 750;
+
+
+   
+
+
+
+
