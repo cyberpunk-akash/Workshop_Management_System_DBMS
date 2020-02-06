@@ -4,9 +4,9 @@ management. The software keeps track of all the commodities in the warehouse, th
 source(supplier) and their destination(retailer). The manager will receive invoices from the supplier. The employees working in the warehouse can thus receive their work orders from the manager and accordingly they do the needful.
 
 ## Prerequisites:
-1. Visual Studio 2019 - Community Version
+1. Visual Studio 2019 - Community Version  
 _It will be a big headache for you make the project run on some other verion of VS, so prefer having the 2019 version_
-2. C# 
+2. C#   
 _You are prompted with a request to install C# while installing Visual Studio. Thus, ensure that it is installed_
 3. MySQL 8.0 Command Line Client
 
@@ -16,7 +16,7 @@ _You are prompted with a request to install C# while installing Visual Studio. T
 3. Create tables and their attributes according to the images in the **schema** directory. You can also refer the **sqlqueries.txt** file, although some queries might be missing in it.
 4. Once the database and it's tables are created, open the project in Visual Studio(through .sln file).
 5. Connect the project to the database using the Server Explorer in Visual Studio.
-6. The following are the details of the environment in which the project was created. ```username=root; password=kent; data source = localhost; database=wms```
+6. The following are the details of the environment in which the project was created. <br />```username=root; password=kent; data source = localhost; database=wms```
 Replace these values in the project appropriately according to your needs.
 7. Run the project, the login page should appear.
 
